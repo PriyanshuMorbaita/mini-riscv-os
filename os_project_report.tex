@@ -1,0 +1,197 @@
+
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\titleformat{\chapter}{\LARGE\bfseries}{\thechapter}{1em}{}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{codebg}{rgb}{0.95,0.95,0.95}
+\lstset{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=single,
+  language=C,
+  showstringspaces=false,
+  tabsize=2
+}
+
+\begin{document}
+
+% Title Page
+\begin{titlepage}
+    \centering
+    {\Huge\bfseries Development of a Minimal Operating System for RISC-V Architecture\\[1cm]}
+    {\Large A PROJECT REPORT\\[0.5cm]}
+    Submitted to\\[0.2cm]
+    KIIT Deemed to be University\\[0.2cm]
+    In Partial Fulfilment of the Requirement for the Award of\\[0.2cm]
+    BACHELOR’S DEGREE IN COMPUTER SCIENCE AND ENGINEERING\\[0.8cm]
+
+    \begin{flushleft}
+        \textbf{BY} \\[0.2cm]
+        PRIYANSHU MORBAITA \hfill Roll No: 22054072 \\[0.2cm]
+        KOUSTAV NAG \hfill Roll No: 22052465 \\[0.8cm]
+
+        \textbf{UNDER THE GUIDANCE OF} \\[0.2cm]
+        JYOTI PRAKASH MISHRA \\[1cm]
+    \end{flushleft}
+
+    \vfill
+    \textbf{SCHOOL OF COMPUTER ENGINEERING} \\[0.2cm]
+    KALINGA INSTITUTE OF INDUSTRIAL TECHNOLOGY \\[0.2cm]
+    BHUBANESWAR, ODISHA - 751024 \\[0.2cm]
+    April 2025
+\end{titlepage}
+
+% Certificate
+\chapter*{Certificate}
+This is to certify that the project entitled \textbf{"Development of a Minimal Operating System for RISC-V Architecture"} submitted by \textbf{Priyanshu Morbaita (22054072)} and \textbf{Koustav Nag (22052465)} is a record of bonafide work carried out by them, in partial fulfilment of the requirement for the award of the degree of Bachelor of Technology in Computer Science and Engineering at KIIT Deemed to be University, Bhubaneswar. This work was carried out during the academic year 2024--2025 under my guidance.
+
+\vspace{2cm}
+\begin{flushright}
+(Jyoti Prakash Mishra) \\
+Project Guide
+\end{flushright}
+
+% Acknowledgement
+\chapter*{Acknowledgement}
+We are profoundly grateful to \textbf{Mr. Jyoti Prakash Mishra}, our project guide, for his expert guidance and continuous encouragement. His support helped us at every stage of the project. We would also like to thank our faculty and peers for their suggestions and help during the development of this operating system.
+
+\vspace{1cm}
+\noindent
+\textbf{Priyanshu Morbaita} \\
+\textbf{Koustav Nag}
+
+% Abstract
+\chapter*{Abstract}
+This project focuses on developing a minimal operating system for the RISC-V architecture. It includes basic modules like memory management, multitasking, shell interface, and UART I/O handling. The OS is designed with simplicity in mind and runs in a flat memory model. 
+
+\vspace{0.5cm}
+The aim is to gain low-level programming experience and understand how kernels are structured. We used C and Assembly for implementation and tested the system using QEMU for RISC-V.
+
+\textbf{Keywords:} RISC-V, Operating System, Kernel, Shell, Memory Management, Multitasking
+
+\tableofcontents
+
+\chapter{Introduction}
+There is a growing interest in open instruction set architectures like RISC-V for both academic and industrial use. To truly understand system-level programming, it is essential to build a minimal operating system that interacts directly with hardware, especially for educational purposes.
+
+This report outlines the design and implementation of a minimal OS written in C and RISC-V assembly. It provides key system functionalities like memory allocation, I/O, multitasking, and user shell. The project serves as a learning platform for understanding OS internals.
+
+\chapter{Basic Concepts / Literature Review}
+\section{RISC-V Architecture}
+RISC-V is an open-source ISA that offers extensibility and simplicity. It supports multiple privilege modes, a modular design, and is ideal for educational use.
+
+\section{Flat Memory Model}
+This model does not use paging or segmentation. All processes operate in the same memory space, making it easier to design a minimal OS.
+
+\section{UART Communication}
+UART (Universal Asynchronous Receiver/Transmitter) is used for I/O in embedded systems. We use MMIO to communicate through a standard UART interface.
+
+\chapter{Problem Statement / Requirement Specifications}
+\section{Project Planning}
+We planned the project by modularizing key functionalities:
+\begin{itemize}
+    \item Bootloader
+    \item Kernel
+    \item Memory Management
+    \item Multitasking
+    \item Shell
+\end{itemize}
+
+\section{Project Analysis}
+We needed to support basic system calls, program loading, I/O, and memory allocation without external dependencies.
+
+\section{System Design}
+\subsection{Design Constraints}
+\begin{itemize}
+    \item QEMU RISC-V emulator
+    \item Flat memory model
+    \item C and Assembly only
+\end{itemize}
+
+\subsection{System Architecture}
+\includegraphics[width=\textwidth]{os_architecture.png} % optional if available
+
+\chapter{Implementation}
+\section{Methodology}
+We implemented each module in a step-wise fashion. The bootloader initializes memory and calls the kernel. The kernel handles subsystems like memory, multitasking, shell, etc.
+
+\section{Testing / Verification Plan}
+All components were tested in QEMU. UART output was used for debugging and verification. 
+
+\section{Result Analysis / Screenshots}
+The following output was seen on UART:
+\begin{verbatim}
+A
+B
+X
+Kernel has started...
+Memory system initialized
+Shell initialized
+$ 
+
+testmalloc
+=== Testing malloc() and free() ===
+Before malloc:
+Total: 2097152 bytes ...
+\end{verbatim}
+
+\section{Quality Assurance}
+Code reviews and testing ensured minimal bugs. Each module was verified independently.
+
+\chapter{Standards Adopted}
+\section{Design Standards}
+Followed modular design practices and block diagram-based planning.
+
+\section{Coding Standards}
+\begin{itemize}
+    \item Consistent indentation
+    \item Descriptive function names
+    \item Modular functions
+\end{itemize}
+
+\section{Testing Standards}
+Manual and assertion-based testing using UART messages and shell input/output verification.
+
+\chapter{Conclusion and Future Scope}
+\section{Conclusion}
+This project gave us hands-on experience with kernel development and low-level programming. We successfully built a working minimal OS.
+
+\section{Future Scope}
+\begin{itemize}
+    \item Add filesystem support
+    \item Implement paging
+    \item Load user programs from disk
+\end{itemize}
+
+\chapter*{References}
+\begin{itemize}
+    \item RISC-V Official Documentation: \url{https://riscv.org/}
+    \item QEMU Emulator: \url{https://www.qemu.org/}
+    \item Operating Systems: Three Easy Pieces by Remzi Arpaci-Dusseau
+\end{itemize}
+
+\chapter*{Individual Contribution}
+\section*{Priyanshu Morbaita (22054072)}
+\textbf{Role in Project:} Developed bootloader, multitasking module, and contributed to kernel and shell interface. \\ 
+\textbf{Report Contribution:} Chapters 1, 3, and 4. \\ 
+\textbf{Presentation Contribution:} Kernel demo and shell functionality.
+
+\section*{Koustav Nag (22052465)}
+\textbf{Role in Project:} Developed memory module, UART interface, and supported integration. \\ 
+\textbf{Report Contribution:} Chapters 2, 5, and 6. \\ 
+\textbf{Presentation Contribution:} Memory management demo and system architecture explanation.
+
+\end{document}
