@@ -22,10 +22,12 @@ void kernel_main(void) {
     shell_init();
     puts("After shell_init()");
 
+    testmulti();
 
-    puts("Before shell_run()");
-    shell_run();
-    puts("After shell_run()");
+    schedular();
+    // puts("Before shell_run()");
+    // shell_run();
+    // puts("After shell_run()");
     puts("Kernel halted\n");
     while(1) {
         asm volatile("wfi");

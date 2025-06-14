@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include <stdatomic.h>
 
 typedef int (*cmd_func_t)(int argc, char **argv);
 
@@ -18,16 +19,20 @@ typedef struct {
 
 void memory_stats(memory_info_t *info);
 
-#include "uart.h"
+#include "io/uart.h"
 
- #include "include/io.h"
- #include "include/types.h"
+ #include "io/io.h"
+ #include "kernel/types.h"
  
- #include "memory/memory.h"
+ #include "user/memory.h"
  
- #include "multitasking/multitask.h"
+ #include "kernel/kalloc.h"
+ #include "kernel/multitask.h"
  
- #include "shell/shell.h"
+ #include "user/shell.h"
  
+ #include "kernel/spinlock.h"
+ #include "kernel/proc.h"
+
  
  #endif 
